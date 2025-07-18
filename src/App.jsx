@@ -19,7 +19,7 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react'
-import logoIployee from './assets/logo-iployee.png'
+import logoIployee from './assets/Logo_iPloyee-removebg-preview.png' // Updated logo path
 import './App.css'
 
 function App() {
@@ -36,42 +36,42 @@ function App() {
     {
       icon: <Bot className="w-8 h-8" />,
       title: "AI Receptionists",
-      description: "Virtual receptionists que agendam consultas, qualificam leads e proporcionam uma primeira impressão calorosa e personalizada aos visitantes do seu website."
+      description: "Virtual receptionists that schedule appointments, qualify leads, and provide a warm, personalized first impression to your website visitors."
     },
     {
       icon: <MessageCircle className="w-8 h-8" />,
       title: "AI Chatbots",
-      description: "Chatbots alimentados por conhecimento que fornecem respostas instantâneas e precisas às consultas dos clientes usando informações do seu website e ficheiros."
+      description: "Knowledge-powered chatbots that provide instant, accurate answers to customer queries using information from your website and files."
     },
     {
       icon: <Clock className="w-8 h-8" />,
-      title: "Disponibilidade 24/7",
-      description: "Nunca perca um lead ou consulta com assistência de IA 24 horas por dia que interage com visitantes mesmo quando a sua equipa está offline."
+      title: "24/7 Availability",
+      description: "Never miss a lead or inquiry with 24/7 AI assistance that engages with visitors even when your team is offline."
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Integração Fácil",
-      description: "Conecte-se perfeitamente com mais de 6.000 aplicações incluindo sistemas CRM, calendários e ferramentas de negócio sem conhecimento de programação."
+      title: "Easy Integration",
+      description: "Seamlessly connect with over 6,000 applications including CRM systems, calendars, and business tools with no coding knowledge."
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Qualificação de Leads",
-      description: "Deixe que os recepcionistas de IA capturem e qualifiquem leads, recolhendo informações essenciais antes de transferir para a sua equipa de vendas."
+      title: "Lead Qualification",
+      description: "Let AI receptionists capture and qualify leads, gathering essential information before transferring to your sales team."
     },
     {
       icon: <Settings className="w-8 h-8" />,
-      title: "Personalização",
-      description: "Adapte os seus assistentes de IA para corresponder à voz, estilo e personalidade da sua marca para uma experiência de cliente coesa."
+      title: "Customization",
+      description: "Tailor your AI assistants to match your brand's voice, style, and personality for a cohesive customer experience."
     }
   ]
 
   const industries = [
-    { name: "E-commerce", description: "Aumente conversões com recomendações de produtos e suporte instantâneo" },
-    { name: "Restaurantes", description: "Gerencie reservas, consultas de menu e pedidos especiais" },
-    { name: "Imobiliário", description: "Agende visualizações de propriedades e qualifique potenciais compradores" },
-    { name: "Saúde", description: "Simplifique o agendamento de consultas e responda a questões de saúde comuns" },
-    { name: "Serviços Jurídicos", description: "Agende consultas e responda a consultas jurídicas gerais" },
-    { name: "Agências de Marketing", description: "Qualifique leads e agende consultas enquanto fornece informações sobre serviços" }
+    { name: "E-commerce", description: "Boost conversions with product recommendations and instant support" },
+    { name: "Restaurants", description: "Manage reservations, menu inquiries, and special orders" },
+    { name: "Real Estate", description: "Schedule property viewings and qualify potential buyers" },
+    { name: "Healthcare", description: "Streamline appointment scheduling and answer common health queries" },
+    { name: "Legal Services", description: "Schedule consultations and answer general legal inquiries" },
+    { name: "Marketing Agencies", description: "Qualify leads and schedule consultations while providing service information" }
   ]
 
   const testimonials = [
@@ -79,19 +79,19 @@ function App() {
       name: "Maria Silva",
       company: "TechStart",
       rating: 5,
-      text: "O iPloyee transformou completamente a nossa experiência de atendimento ao cliente. Nunca mais perdemos um lead!"
+      text: "iPloyee has completely transformed our customer service experience. We never miss a lead anymore!"
     },
     {
       name: "João Santos",
       company: "MedClinic",
       rating: 5,
-      text: "A integração foi perfeita e os nossos pacientes adoram a disponibilidade 24/7 para agendamentos."
+      text: "The integration was seamless and our patients love the 24/7 availability for appointments."
     },
     {
       name: "Ana Costa",
       company: "LegalPro",
       rating: 5,
-      text: "Reduziu significativamente a nossa carga de trabalho administrativo enquanto melhora a satisfação do cliente."
+      text: "It significantly reduced our administrative workload while improving customer satisfaction."
     }
   ]
 
@@ -109,12 +109,12 @@ function App() {
             
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-yellow-600 transition-colors">Início</a>
-              <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Funcionalidades</a>
-              <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Indústrias</a>
-              <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testemunhos</a>
+              <a href="#home" className="text-gray-700 hover:text-yellow-600 transition-colors">Home</a>
+              <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
+              <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
+              <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
               <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600">
-                Agendar Demo
+                Book a Demo
               </Button>
             </div>
 
@@ -131,12 +131,12 @@ function App() {
           {isMenuOpen && (
             <div className="md:hidden bg-white rounded-lg shadow-lg p-4 mb-4">
               <div className="flex flex-col space-y-4">
-                <a href="#home" className="text-gray-700 hover:text-yellow-600 transition-colors">Início</a>
-                <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Funcionalidades</a>
-                <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Indústrias</a>
-                <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testemunhos</a>
+                <a href="#home" className="text-gray-700 hover:text-yellow-600 transition-colors">Home</a>
+                <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
+                <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
+                <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
                 <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600">
-                  Agendar Demo
+                  Book a Demo
                 </Button>
               </div>
             </div>
@@ -150,21 +150,21 @@ function App() {
           <div className="text-center mb-16">
             <Badge className="mb-6 bg-yellow-100 text-yellow-800 hover:bg-yellow-200">
               <Sparkles className="w-4 h-4 mr-2" />
-              Sempre Ligado, Sempre Pronto
+              Always On, Always Ready
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-yellow-800 to-orange-800 bg-clip-text text-transparent leading-tight">
               AI Receptionists.
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Nunca perca um lead ou uma pergunta. Os nossos recepcionistas de IA e chatbots trabalham 24/7 para receber visitantes, qualificar leads, agendar reuniões e lidar com suporte para que se possa focar no que importa.
+              Never miss a lead or an inquiry. Our AI receptionists and chatbots work 24/7 to greet visitors, qualify leads, schedule meetings, and handle support so you can focus on what matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4">
-                Começar Teste Gratuito
+                Start Free Trial
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2">
-                Ver Demo
+                View Demo
               </Button>
             </div>
           </div>
@@ -177,22 +177,22 @@ function App() {
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="p-6 text-center">
                       <Phone className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
-                      <h3 className="font-semibold text-lg mb-2">Chamadas 24/7</h3>
-                      <p className="text-gray-600 text-sm">Resposta instantânea a todas as chamadas</p>
+                      <h3 className="font-semibold text-lg mb-2">24/7 Calls</h3>
+                      <p className="text-gray-600 text-sm">Instant response to all calls</p>
                     </CardContent>
                   </Card>
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="p-6 text-center">
                       <Calendar className="w-12 h-12 text-orange-600 mx-auto mb-4" />
-                      <h3 className="font-semibold text-lg mb-2">Agendamento</h3>
-                      <p className="text-gray-600 text-sm">Marcação automática de reuniões</p>
+                      <h3 className="font-semibold text-lg mb-2">Scheduling</h3>
+                      <p className="text-gray-600 text-sm">Automatic meeting booking</p>
                     </CardContent>
                   </Card>
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="p-6 text-center">
                       <Shield className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-                      <h3 className="font-semibold text-lg mb-2">Qualificação</h3>
-                      <p className="text-gray-600 text-sm">Filtragem inteligente de leads</p>
+                      <h3 className="font-semibold text-lg mb-2">Qualification</h3>
+                      <p className="text-gray-600 text-sm">Intelligent lead filtering</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -207,10 +207,10 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              As Nossas Soluções
+              Our Solutions
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A nossa solução dupla de IA trabalha em conjunto para proporcionar uma experiência completa de envolvimento do cliente.
+              Our dual AI solution works together to provide a complete customer engagement experience.
             </p>
           </div>
 
@@ -239,10 +239,10 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Aplicações por Indústria
+              Applications by Industry
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Descubra como os nossos Recepcionistas de IA e Chatbots podem beneficiar a sua indústria específica.
+              Discover how our AI Receptionists and Chatbots can benefit your specific industry.
             </p>
           </div>
 
@@ -268,10 +268,10 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              O Que Dizem os Nossos Clientes
+              What Our Clients Say
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Veja como o iPloyee está a transformar negócios em todo o mundo.
+              See how iPloyee is transforming businesses worldwide.
             </p>
           </div>
 
@@ -302,18 +302,18 @@ function App() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-yellow-500 to-orange-500">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            Pronto para Transformar a Sua Experiência de Cliente?
+            Ready to Transform Your Customer Experience?
           </h2>
           <p className="text-xl text-yellow-100 mb-8 leading-relaxed">
-            Comece o seu teste gratuito de 7 dias e veja o impacto dos Recepcionistas de IA e Chatbots no seu negócio.
+            Start your 7-day free trial and see the impact of AI Receptionists and Chatbots on your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4">
-              Começar Teste Gratuito
+              Start Free Trial
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4">
-              Agendar Demo
+              Book a Demo
             </Button>
           </div>
         </div>
@@ -328,24 +328,24 @@ function App() {
                 <img src={logoIployee} alt="iPloyee Logo" className="h-12" />
               </div>
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-                O iPloyee oferece recepcionistas de IA e chatbots 24/7 que lidam com consultas, agendamento e suporte com precisão humana.
+                iPloyee offers 24/7 AI receptionists and chatbots that handle inquiries, scheduling, and support with human-like precision.
               </p>
               <p className="text-gray-400 text-sm">
-                Reduza custos, melhore tempos de resposta e eleve a sua experiência de cliente—automaticamente.
+                Reduce costs, improve response times, and elevate your customer experience—automatically.
               </p>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">Recursos Adicionais</h3>
+              <h3 className="text-lg font-semibold mb-4">Additional Resources</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">FAQ's</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Termos de Serviço</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">Contacte-nos!</h3>
+              <h3 className="text-lg font-semibold mb-4">Contact Us!</h3>
               <div className="space-y-2 text-gray-400">
                 <p className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
@@ -361,10 +361,10 @@ function App() {
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-400">
-              © 2025 iPloyee. Todos os Direitos Reservados.
+              © 2025 iPloyee. All Rights Reserved.
             </p>
             <p className="text-gray-500 mt-2 text-sm">
-              Conversas Mais Inteligentes. iPloyee.
+              Smarter Conversations. iPloyee.
             </p>
           </div>
         </div>
@@ -374,6 +374,5 @@ function App() {
 }
 
 export default App
-
 
 
