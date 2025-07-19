@@ -19,8 +19,7 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react';
-import logoIployee from 
-'/Logo_iPloyee-removebg-preview.png'; // Updated logo path
+import logoIployee from '/Logo_iPloyee-removebg-preview.png'; // Updated logo path
 import './App.css'
 
 function App() {
