@@ -19,12 +19,13 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react';
-
+import Checkout from './components/Checkout.jsx';
 import './App.css'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -113,7 +114,7 @@ function App() {
               <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
               <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
               <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600">
+              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsCheckoutOpen(true)}>
                 Book a Demo
               </Button>
             </div>
@@ -135,7 +136,7 @@ function App() {
                 <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
                 <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
                 <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-                <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600">
+                <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsCheckoutOpen(true)}>
                   Book a Demo
                 </Button>
               </div>
@@ -159,7 +160,7 @@ function App() {
               Never miss a lead or an inquiry. Our AI receptionists and chatbots work 24/7 to greet visitors, qualify leads, schedule meetings, and handle support so you can focus on what matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4">
+              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
                 Start Free Trial
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
@@ -308,11 +309,11 @@ function App() {
             Start your 7-day free trial and see the impact of AI Receptionists and Chatbots on your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4">
+            <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
               Start Free Trial
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4">
+            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
               Book a Demo
             </Button>
           </div>
@@ -369,6 +370,12 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Checkout Modal */}
+      <Checkout 
+        isOpen={isCheckoutOpen} 
+        onClose={() => setIsCheckoutOpen(false)} 
+      />
     </div>
   )
 }
