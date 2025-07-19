@@ -1,6 +1,6 @@
 // GoHighLevel API Integration
 const GOHIGHLEVEL_API_BASE = 'https://rest.gohighlevel.com/v1';
-const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiejdHbFVpMVY1dGo2QmtOOXhmWVYiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NTI5NDQ5MjA0MDUsInN1YiI6IkRBbWFxNjdpZlZQYTVXaGo1dFFkIn0.caot80o3tZ1SmblSaw9x5itC5VwtSyvabz5knmJ68IU';
+const API_KEY = 'pit-63ae1639-3bbf-4e73-bcdf-1edf55d0cce4';
 
 export const submitLeadToGoHighLevel = async (leadData) => {
   try {

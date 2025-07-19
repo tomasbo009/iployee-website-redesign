@@ -161,7 +161,7 @@ function App() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
-                Start Free Trial
+                Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2">
@@ -306,11 +306,11 @@ function App() {
             Ready to Transform Your Customer Experience?
           </h2>
           <p className="text-xl text-yellow-100 mb-8 leading-relaxed">
-            Start your 7-day free trial and see the impact of AI Receptionists and Chatbots on your business.
+            Get your AI Receptionist and start converting more leads into customers today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
-              Start Free Trial
+              Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
