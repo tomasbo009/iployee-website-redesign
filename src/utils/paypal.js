@@ -58,17 +58,25 @@ export const capturePayPalPayment = async (orderID) => {
 // Load PayPal SDK
 export const loadPayPalSDK = () => {
   return new Promise((resolve, reject) => {
+    console.log('Attempting to load PayPal SDK...');
     if (window.paypal) {
+      console.log('PayPal SDK already loaded.');
       resolve(window.paypal);
       return;
     }
 
     const script = document.createElement('script');
-    // Ensure client-id is the first parameter
     script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CONFIG.currency}&intent=${PAYPAL_CONFIG.intent}`;
-    script.onload = () => resolve(window.paypal);
-    script.onerror = () => reject(new Error('Failed to load PayPal SDK'));
+    script.onload = () => {
+      console.log('PayPal SDK script loaded successfully.');
+      resolve(window.paypal);
+    };
+    script.onerror = (e) => {
+      console.error('Failed to load PayPal SDK script:', e);
+      reject(new Error('Failed to load PayPal SDK'));
+    };
     document.head.appendChild(script);
+    console.log('PayPal SDK script appended to head.');
   });
 };
 
