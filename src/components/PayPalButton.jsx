@@ -17,13 +17,31 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         setIsLoading(true);
         setError(null);
         
-        const paypal = await loadPayPalSDK();
+        console.log("Starting PayPal SDK initialization...");
         
-        console.log("PayPal SDK loaded.");
+        // Add timeout for PayPal SDK loading
+        const timeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('PayPal SDK loading timeout')), 15000);
+        });
+        
+        const paypal = await Promise.race([
+          loadPayPalSDK(),
+          timeoutPromise
+        ]);
+        
+        console.log("PayPal SDK loaded successfully:", paypal);
+
+        if (!paypal || !paypal.Buttons) {
+          throw new Error('PayPal SDK not properly loaded');
+        }
 
         paypalRef.current.innerHTML = ""; // Clear any existing content
+        
+        console.log("Creating PayPal buttons...");
+        
         paypal.Buttons({
           createOrder: (data, actions) => {
+            console.log("Creating PayPal order...");
             return actions.order.create({
               purchase_units: [{
                 amount: {
@@ -36,6 +54,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
           },
           onApprove: async (data, actions) => {
             try {
+              console.log("PayPal payment approved, capturing...");
               const details = await actions.order.capture();
               console.log("PayPal payment successful:", details);
               
@@ -51,6 +70,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
           },
           onError: (err) => {
             console.error("PayPal error:", err);
+            setError('PayPal payment error occurred');
             if (onError) {
               onError(err);
             }
@@ -68,12 +88,18 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
             label: "paypal",
             height: 45
           }
-        }).render(paypalRef.current);
+        }).render(paypalRef.current).then(() => {
+          console.log("PayPal buttons rendered successfully");
+          setIsLoading(false);
+        }).catch((renderError) => {
+          console.error("Error rendering PayPal buttons:", renderError);
+          setError('Failed to render PayPal buttons');
+          setIsLoading(false);
+        });
 
-        setIsLoading(false);
       } catch (error) {
-        console.error("Error initializing PayPal:", error);
-        setError('Failed to load PayPal. Please try again.');
+        console.error('Error initializing PayPal:', error);
+        setError(`Failed to load PayPal: ${error.message}`);
         setIsLoading(false);
       }
     };
@@ -81,7 +107,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
     if (!disabled && amount > 0) {
       initPayPal();
     }
-  }, [amount, disabled, onSuccess, onError, onCancel]); // Removed paypalRef from dependencies
+  }, [amount, disabled, onSuccess, onError, onCancel]);
 
   if (disabled) {
     return (
@@ -102,8 +128,15 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
   if (error) {
     return (
-      <div className="w-full h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
-        {error}
+      <div className="w-full p-3 bg-red-100 rounded-lg text-red-600 text-sm">
+        <div className="font-medium">PayPal Error:</div>
+        <div>{error}</div>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="mt-2 text-xs underline hover:no-underline"
+        >
+          Reload page to try again
+        </button>
       </div>
     );
   }
@@ -116,5 +149,4 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 };
 
 export default PayPalButton;
-
 
