@@ -64,10 +64,12 @@ export const loadPayPalSDK = () => {
     }
 
     const script = document.createElement('script');
+    // Ensure client-id is the first parameter
     script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CONFIG.currency}&intent=${PAYPAL_CONFIG.intent}`;
     script.onload = () => resolve(window.paypal);
     script.onerror = () => reject(new Error('Failed to load PayPal SDK'));
     document.head.appendChild(script);
   });
 };
+
 
