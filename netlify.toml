@@ -1,9 +1,6 @@
-[build]
-  command = "pnpm install && pnpm run build"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "18"
-  NPM_FLAGS = "--prefix /opt/build/repo"
-
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com; child-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com; frame-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com; img-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com data:; style-src 'self' *.paypal.com *.paypalobjects.com *.venmo.com 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self';"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
 
