@@ -8,66 +8,71 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
   useEffect(() => {
     const initPayPal = async () => {
+      if (!paypalRef.current) {
+        console.log("paypalRef.current is not available yet.");
+        return;
+      }
+
       try {
         setIsLoading(true);
         setError(null);
         
         const paypal = await loadPayPalSDK();
         
-        if (paypalRef.current) {
-          paypalRef.current.innerHTML = "";
-          paypal.Buttons({
-            createOrder: (data, actions) => {
-              return actions.order.create({
-                purchase_units: [{
-                  amount: {
-                    value: amount.toString(),
-                    currency_code: PAYPAL_CONFIG.currency
-                  },
-                  description: "Smart Voice Pro - AI Calling Agent"
-                }]
-              });
-            },
-            onApprove: async (data, actions) => {
-              try {
-                const details = await actions.order.capture();
-                console.log("PayPal payment successful:", details);
-                
-                if (onSuccess) {
-                  onSuccess(details);
-                }
-              } catch (error) {
-                console.error("Error capturing PayPal payment:", error);
-                if (onError) {
-                  onError(error);
-                }
+        console.log("PayPal SDK loaded.");
+
+        paypalRef.current.innerHTML = ""; // Clear any existing content
+        paypal.Buttons({
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: amount.toString(),
+                  currency_code: PAYPAL_CONFIG.currency
+                },
+                description: "Smart Voice Pro - AI Calling Agent"
+              }]
+            });
+          },
+          onApprove: async (data, actions) => {
+            try {
+              const details = await actions.order.capture();
+              console.log("PayPal payment successful:", details);
+              
+              if (onSuccess) {
+                onSuccess(details);
               }
-            },
-            onError: (err) => {
-              console.error("PayPal error:", err);
+            } catch (error) {
+              console.error("Error capturing PayPal payment:", error);
               if (onError) {
-                onError(err);
+                onError(error);
               }
-            },
-            onCancel: (data) => {
-              console.log("PayPal payment cancelled:", data);
-              if (onCancel) {
-                onCancel(data);
-              }
-            },
-            style: {
-              layout: "vertical",
-              color: "gold",
-              shape: "rect",
-              label: "paypal",
-              height: 45
             }
-          }).render(paypalRef.current);
-        }
+          },
+          onError: (err) => {
+            console.error("PayPal error:", err);
+            if (onError) {
+              onError(err);
+            }
+          },
+          onCancel: (data) => {
+            console.log("PayPal payment cancelled:", data);
+            if (onCancel) {
+              onCancel(data);
+            }
+          },
+          style: {
+            layout: "vertical",
+            color: "gold",
+            shape: "rect",
+            label: "paypal",
+            height: 45
+          }
+        }).render(paypalRef.current);
 
         setIsLoading(false);
       } catch (error) {
-        console.error('Error initializing PayPal:', error);
+        console.error("Error initializing PayPal:", error);
         setError('Failed to load PayPal. Please try again.');
         setIsLoading(false);
       }
@@ -76,9 +81,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
     if (!disabled && amount > 0) {
       initPayPal();
     }
-  }, [amount, disabled, onSuccess, onError, onCancel, paypalRef]);
-
-  if (!paypalRef.current) return;
+  }, [amount, disabled, onSuccess, onError, onCancel]); // Removed paypalRef from dependencies
 
   if (disabled) {
     return (
@@ -113,4 +116,5 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 };
 
 export default PayPalButton;
+
 
