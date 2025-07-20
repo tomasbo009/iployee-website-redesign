@@ -15,6 +15,7 @@ import {
   Lock
 } from 'lucide-react';
 import { submitLeadToGoHighLevel, createOpportunityInGoHighLevel } from '../utils/gohighlevel.js';
+import PayPalButton from './PayPalButton';
 
 const Checkout = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -50,54 +51,6 @@ const Checkout = ({ isOpen, onClose }) => {
       ...prev,
       [name]: value
     }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      // Preparar dados do lead
-      const orderData = {
-        ...formData,
-        product: product.name,
-        amount: product.price * formData.quantity,
-        timestamp: new Date().toISOString()
-      };
-
-      console.log('Submitting order data:', orderData);
-      
-      // Simular processamento (2 segundos)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Tentar enviar para GoHighLevel (opcional)
-      try {
-        const leadResult = await submitLeadToGoHighLevel(orderData);
-        console.log('Lead submitted to GoHighLevel:', leadResult);
-        
-        // Criar oportunidade no GoHighLevel (se o lead foi criado com sucesso)
-        if (leadResult && leadResult.contact && leadResult.contact.id) {
-          try {
-            const opportunityResult = await createOpportunityInGoHighLevel(leadResult.contact.id, orderData);
-            console.log('Opportunity created in GoHighLevel:', opportunityResult);
-          } catch (opportunityError) {
-            console.warn('Failed to create opportunity, but lead was saved:', opportunityError);
-          }
-        }
-        
-        alert('Order submitted successfully! Lead has been saved to GoHighLevel. You will be redirected to PayPal for payment.');
-      } catch (ghlError) {
-        console.warn('GoHighLevel integration failed, but order is still valid:', ghlError);
-        alert('Order submitted successfully! You will be redirected to PayPal for payment. (Note: Lead will be processed manually)');
-      }
-      
-      onClose();
-    } catch (error) {
-      console.error('Error submitting order:', error);
-      alert('There was an error submitting your order. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const totalAmount = product.price * formData.quantity;
@@ -180,7 +133,7 @@ const Checkout = ({ isOpen, onClose }) => {
 
             {/* Order Form */}
             <div className="space-y-6">
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-4">
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name *
@@ -266,30 +219,63 @@ const Checkout = ({ isOpen, onClose }) => {
                   </CardContent>
                 </Card>
 
-                {/* Payment Button */}
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
-                >
-                  {isLoading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      <span>Processing...</span>
-                    </>
-                  ) : (
-                    <>
-                      <CreditCard className="w-5 h-5" />
-                      <span>Continue to PayPal</span>
-                    </>
-                  )}
-                </Button>
+                {/* Payment Section */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Payment Method</h3>
+                  
+                  {/* PayPal Button */}
+                  <PayPalButton
+                    amount={totalAmount}
+                    disabled={!formData.fullName || !formData.email || !formData.phone}
+                    onSuccess={async (details) => {
+                      console.log('PayPal payment successful:', details);
+                      
+                      // Preparar dados do lead
+                      const orderData = {
+                        ...formData,
+                        product: product.name,
+                        amount: totalAmount,
+                        paymentId: details.id,
+                        paymentStatus: details.status,
+                        timestamp: new Date().toISOString()
+                      };
 
-                <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
-                  <Lock className="w-4 h-4" />
-                  <span>100% Secure & Safe Payments</span>
+                      // Tentar enviar para GoHighLevel
+                      try {
+                        const leadResult = await submitLeadToGoHighLevel(orderData);
+                        console.log('Lead submitted to GoHighLevel:', leadResult);
+                        
+                        if (leadResult && leadResult.contact && leadResult.contact.id) {
+                          try {
+                            const opportunityResult = await createOpportunityInGoHighLevel(leadResult.contact.id, orderData);
+                            console.log('Opportunity created in GoHighLevel:', opportunityResult);
+                          } catch (opportunityError) {
+                            console.warn('Failed to create opportunity, but lead was saved:', opportunityError);
+                          }
+                        }
+                      } catch (ghlError) {
+                        console.warn('GoHighLevel integration failed, but payment was successful:', ghlError);
+                      }
+                      
+                      alert('Payment successful! Thank you for your purchase. You will receive a confirmation email shortly.');
+                      onClose();
+                    }}
+                    onError={(error) => {
+                      console.error('PayPal payment error:', error);
+                      alert('Payment failed. Please try again or contact support.');
+                    }}
+                    onCancel={(data) => {
+                      console.log('PayPal payment cancelled:', data);
+                      alert('Payment was cancelled.');
+                    }}
+                  />
+                  
+                  <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
+                    <Lock className="w-4 h-4" />
+                    <span>100% Secure & Safe Payments</span>
+                  </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
