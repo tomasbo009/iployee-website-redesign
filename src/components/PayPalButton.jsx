@@ -11,6 +11,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
   useEffect(() => {
     // Check if PayPal script is already loaded
     if (window.paypal) {
+      console.log('PayPal SDK already loaded in window.paypal:', window.paypal);
       setScriptLoaded(true);
       return;
     }
@@ -19,13 +20,31 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
     const loadPayPalScript = () => {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture`;
+        script.src = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture&components=buttons`;
         script.async = true;
         
         script.onload = () => {
-          console.log('PayPal script loaded successfully');
-          setScriptLoaded(true);
-          resolve(window.paypal);
+          console.log('PayPal SDK script loaded successfully.');
+          console.log('window.paypal after script load:', window.paypal);
+          
+          // Poll for window.paypal.Buttons to be available
+          let attempts = 0;
+          const maxAttempts = 50; // 50 * 100ms = 5 seconds timeout
+          const checkInterval = setInterval(() => {
+            if (window.paypal && window.paypal.Buttons) {
+              clearInterval(checkInterval);
+              console.log('window.paypal.Buttons is now available.');
+              setScriptLoaded(true);
+              resolve(window.paypal);
+            } else if (attempts >= maxAttempts) {
+              clearInterval(checkInterval);
+              console.error('Timeout waiting for window.paypal.Buttons.');
+              reject(new Error('Timeout waiting for PayPal Buttons to be available.'));
+            } else {
+              console.log(`Attempt ${attempts + 1}/${maxAttempts}: Waiting for window.paypal.Buttons...`);
+              attempts++;
+            }
+          }, 100);
         };
         
         script.onerror = (error) => {
@@ -34,6 +53,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         };
         
         document.head.appendChild(script);
+        console.log('PayPal SDK script appended to head.');
       });
     };
 
@@ -55,9 +75,18 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         setError(null);
 
         // Clear any existing content
-        paypalRef.current.innerHTML = '';
+        if (paypalRef.current) {
+          paypalRef.current.innerHTML = '';
+        }
 
         console.log('Rendering PayPal buttons...');
+
+        if (!window.paypal || !window.paypal.Buttons) {
+          console.error('window.paypal.Buttons is not available for rendering.');
+          setError('PayPal Buttons not available. Please refresh and try again.');
+          setIsLoading(false);
+          return;
+        }
 
         window.paypal.Buttons({
           createOrder: (data, actions) => {
