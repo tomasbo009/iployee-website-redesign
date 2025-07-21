@@ -124,6 +124,11 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
               const details = await actions.order.capture();
               console.log('PayPal payment captured successfully:', details);
               
+              // Redirect to thank you page after successful payment
+              setTimeout(() => {
+                window.location.href = window.location.origin + '?thankyou=true';
+              }, 1000); // Small delay to ensure the payment is fully processed
+              
               if (onSuccess) {
                 onSuccess(details);
               }

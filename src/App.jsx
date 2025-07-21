@@ -20,18 +20,30 @@ import {
   Sparkles
 } from 'lucide-react';
 import Checkout from './components/Checkout.jsx';
+import ThankYouPage from './components/ThankYouPage.jsx'; // Import the new ThankYouPage
 import './App.css'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
+  const [showThankYouPage, setShowThankYouPage] = useState(false); // New state for thank you page
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Check for thankyou parameter in URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('thankyou') === 'true') {
+      setShowThankYouPage(true);
+      // Clean up the URL without reloading the page
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   const features = [
     {
@@ -95,6 +107,11 @@ function App() {
       text: "It significantly reduced our administrative workload while improving customer satisfaction."
     }
   ]
+
+  // Conditional rendering for ThankYouPage
+  if (showThankYouPage) {
+    return <ThankYouPage onBackToHome={() => setShowThankYouPage(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50 to-orange-100">
@@ -381,5 +398,6 @@ function App() {
 }
 
 export default App
+
 
 
