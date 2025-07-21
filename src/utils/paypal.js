@@ -66,7 +66,8 @@ export const loadPayPalSDK = () => {
     }
 
     const script = document.createElement('script');
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CONFIG.currency}&intent=${PAYPAL_CONFIG.intent}`;
+    // Ensure client-id is the first parameter and 'buttons' component is included
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CONFIG.currency}&intent=${PAYPAL_CONFIG.intent}&components=buttons`;
     script.onload = () => {
       console.log('PayPal SDK script loaded successfully.');
       resolve(window.paypal);
