@@ -10,38 +10,54 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
   useEffect(() => {
     // Check if PayPal script is already loaded
-    if (window.paypal) {
-      console.log('PayPal SDK already loaded in window.paypal:', window.paypal);
+    if (window.paypal && window.paypal.Buttons) {
+      console.log('PayPal SDK already loaded with Buttons component.');
       setScriptLoaded(true);
+      setIsLoading(false);
       return;
     }
 
-    // Load PayPal script
+    // Load PayPal script with explicit components parameter
     const loadPayPalScript = () => {
       return new Promise((resolve, reject) => {
+        // Remove any existing PayPal scripts
+        const existingScript = document.querySelector('script[src*="paypal.com/sdk/js"]');
+        if (existingScript) {
+          existingScript.remove();
+        }
+
         const script = document.createElement('script');
+        // Based on GitHub issue #572, we need to explicitly specify components=buttons
         script.src = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture&components=buttons`;
         script.async = true;
+        script.defer = true;
         
         script.onload = () => {
           console.log('PayPal SDK script loaded successfully.');
           console.log('window.paypal after script load:', window.paypal);
           
-          // Poll for window.paypal.Buttons to be available
+          // Wait for window.paypal.Buttons to be available
           let attempts = 0;
-          const maxAttempts = 50; // 50 * 100ms = 5 seconds timeout
+          const maxAttempts = 100; // 100 * 100ms = 10 seconds timeout
           const checkInterval = setInterval(() => {
             if (window.paypal && window.paypal.Buttons) {
               clearInterval(checkInterval);
               console.log('window.paypal.Buttons is now available.');
               setScriptLoaded(true);
+              setIsLoading(false);
               resolve(window.paypal);
             } else if (attempts >= maxAttempts) {
               clearInterval(checkInterval);
-              console.error('Timeout waiting for window.paypal.Buttons.');
+              console.error('Timeout waiting for window.paypal.Buttons after 10 seconds.');
+              console.log('Available PayPal properties:', window.paypal ? Object.keys(window.paypal) : 'window.paypal is undefined');
+              setError('PayPal failed to load properly. Please refresh the page.');
+              setIsLoading(false);
               reject(new Error('Timeout waiting for PayPal Buttons to be available.'));
             } else {
               console.log(`Attempt ${attempts + 1}/${maxAttempts}: Waiting for window.paypal.Buttons...`);
+              if (window.paypal) {
+                console.log('Available PayPal properties:', Object.keys(window.paypal));
+              }
               attempts++;
             }
           }, 100);
@@ -49,11 +65,13 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         
         script.onerror = (error) => {
           console.error('Failed to load PayPal script:', error);
+          setError('Failed to load PayPal. Please check your internet connection and refresh.');
+          setIsLoading(false);
           reject(new Error('Failed to load PayPal script'));
         };
         
         document.head.appendChild(script);
-        console.log('PayPal SDK script appended to head.');
+        console.log('PayPal SDK script appended to head with components=buttons.');
       });
     };
 
@@ -71,24 +89,23 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
     const renderPayPalButtons = async () => {
       try {
-        setIsLoading(true);
-        setError(null);
+        console.log('Starting PayPal buttons rendering...');
 
         // Clear any existing content
         if (paypalRef.current) {
           paypalRef.current.innerHTML = '';
         }
 
-        console.log('Rendering PayPal buttons...');
-
         if (!window.paypal || !window.paypal.Buttons) {
           console.error('window.paypal.Buttons is not available for rendering.');
-          setError('PayPal Buttons not available. Please refresh and try again.');
-          setIsLoading(false);
+          console.log('window.paypal:', window.paypal);
+          setError('PayPal Buttons component not available. Please refresh and try again.');
           return;
         }
 
-        window.paypal.Buttons({
+        console.log('Rendering PayPal buttons with amount:', amount);
+
+        const paypalButtons = window.paypal.Buttons({
           createOrder: (data, actions) => {
             console.log('Creating PayPal order for amount:', amount);
             return actions.order.create({
@@ -138,19 +155,19 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
             height: 45,
             tagline: false
           }
-        }).render(paypalRef.current).then(() => {
-          console.log('PayPal buttons rendered successfully');
-          setIsLoading(false);
-        }).catch((renderError) => {
-          console.error('Error rendering PayPal buttons:', renderError);
-          setError('Failed to render PayPal buttons. Please refresh and try again.');
-          setIsLoading(false);
         });
+
+        if (paypalButtons && paypalButtons.render) {
+          await paypalButtons.render(paypalRef.current);
+          console.log('PayPal buttons rendered successfully');
+        } else {
+          console.error('PayPal Buttons render method not available');
+          setError('PayPal Buttons render method not available. Please refresh and try again.');
+        }
 
       } catch (error) {
         console.error('Error in renderPayPalButtons:', error);
         setError('Failed to initialize PayPal. Please refresh and try again.');
-        setIsLoading(false);
       }
     };
 
