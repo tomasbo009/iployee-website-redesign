@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import Checkout from './components/Checkout.jsx';
 import ThankYouPage from './components/ThankYouPage.jsx'; // Import the new ThankYouPage
+import ViewDemo from './components/ViewDemo.jsx'; // Import the new ViewDemo component
 import './App.css'
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
   const [scrollY, setScrollY] = useState(0)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [showThankYouPage, setShowThankYouPage] = useState(false); // New state for thank you page
+  const [isViewDemoOpen, setIsViewDemoOpen] = useState(false); // New state for ViewDemo page
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -131,7 +133,7 @@ function App() {
               <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
               <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
               <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsCheckoutOpen(true)}>
+              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsViewDemoOpen(true)}>
                 Book a Demo
               </Button>
             </div>
@@ -153,7 +155,7 @@ function App() {
                 <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
                 <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
                 <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-                <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsCheckoutOpen(true)}>
+                <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsViewDemoOpen(true)}>
                   Book a Demo
                 </Button>
               </div>
@@ -181,7 +183,7 @@ function App() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2" onClick={() => setIsViewDemoOpen(true)}>
                 View Demo
               </Button>
             </div>
@@ -392,6 +394,11 @@ function App() {
       <Checkout 
         isOpen={isCheckoutOpen} 
         onClose={() => setIsCheckoutOpen(false)} 
+      />
+
+      <ViewDemo
+        isOpen={isViewDemoOpen}
+        onClose={() => setIsViewDemoOpen(false)}
       />
     </div>
   )
