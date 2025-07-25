@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button.jsx';
 import { Card, CardContent } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import {
@@ -23,13 +24,13 @@ import Checkout from './components/Checkout.jsx';
 import ThankYouPage from './components/ThankYouPage.jsx'; // Import the new ThankYouPage
 import ViewDemo from './components/ViewDemo.jsx'; // Import the new ViewDemo component
 import './App.css'
+import { Link } from 'react-router-dom';
 
-function App() {
+function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [showThankYouPage, setShowThankYouPage] = useState(false); // New state for thank you page
-  const [isViewDemoOpen, setIsViewDemoOpen] = useState(false); // New state for ViewDemo page
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -133,9 +134,7 @@ function App() {
               <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
               <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
               <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsViewDemoOpen(true)}>
-                Book a Demo
-              </Button>
+              <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">Book a Demo</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -155,9 +154,7 @@ function App() {
                 <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
                 <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
                 <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-                <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600" onClick={() => setIsViewDemoOpen(true)}>
-                  Book a Demo
-                </Button>
+                <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">Book a Demo</Link>
               </div>
             </div>
           )}
@@ -183,9 +180,7 @@ function App() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-2" onClick={() => setIsViewDemoOpen(true)}>
-                View Demo
-              </Button>
+              <Link to="/demo" className="text-lg px-8 py-4 border-2 rounded-lg">View Demo</Link>
             </div>
           </div>
 
@@ -332,9 +327,7 @@ function App() {
               Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
-              Book a Demo
-            </Button>
+            <Link to="/demo" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4 rounded-lg">Book a Demo</Link>
           </div>
         </div>
       </section>
@@ -389,22 +382,26 @@ function App() {
           </div>
         </div>
       </footer>
-
       {/* Checkout Modal */}
-      <Checkout 
-        isOpen={isCheckoutOpen} 
-        onClose={() => setIsCheckoutOpen(false)} 
-      />
+      {isCheckoutOpen && (
+        <Checkout onClose={() => setIsCheckoutOpen(false)} />
+      )}
 
-      <ViewDemo
-        isOpen={isViewDemoOpen}
-        onClose={() => setIsViewDemoOpen(false)}
-      />
     </div>
   )
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/demo" element={<ViewDemo />} />
+        <Route path="/thankyou" element={<ThankYouPage />} />
+      </Routes>
+    </Router>
+  );
+}
 
-
+export default App;
 
