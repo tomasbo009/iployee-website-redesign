@@ -15,24 +15,14 @@ const ViewDemo = ({ onClose }) => {
         </div>
         <div className="p-6">
           {/* Conteúdo da demonstração */}
-          <p>Aqui virá o áudio e as FAQs.</p>
+          <p>Aqui virá o áudio.</p>
           <h3 className="text-xl font-semibold mb-4">Demonstração do Chatbot</h3>
           <div className="flex justify-center mb-8">
             <img src="/Beige,BrownandWhiteSimpleCleanAnimatedChatTextMobileVideo.gif" alt="Chatbot Demo" className="max-w-full h-auto rounded-lg shadow-lg" />
           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ViewDemo;
-
-
-
 
           <h3 className="text-xl font-semibold mb-4">Perguntas Frequentes (FAQs)</h3>
-          <div className="space-y-4">
+              <div className="space-y-4">
             <div className="border-b pb-4">
               <h4 className="font-semibold text-lg mb-2">O que é um rececionista de IA?</h4>
               <p className="text-gray-700">Um rececionista de IA é um assistente virtual que utiliza inteligência artificial para interagir com clientes, agendar compromissos, qualificar leads e fornecer suporte, 24 horas por dia, 7 dias por semana.</p>
@@ -50,5 +40,12 @@ export default ViewDemo;
               <p className="text-gray-700">Sim, os nossos assistentes de IA estão disponíveis 24 horas por dia, 7 dias por semana, garantindo que nunca perca uma oportunidade de interação com o cliente, mesmo fora do horário comercial.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ViewDemo;
 
 
