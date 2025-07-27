@@ -180,7 +180,7 @@ function Home() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Link to="/demo" className="text-lg px-8 py-4 border-2 rounded-lg">View Demo</Link>
+              <Link to="/demo" className="text-lg px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 rounded-lg transition-colors">View Demo</Link>
             </div>
           </div>
 
@@ -327,7 +327,7 @@ function Home() {
               Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Link to="/demo" className="border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4 rounded-lg">Book a Demo</Link>
+            <Link to="/demo" className="border-2 border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4 rounded-lg transition-colors">Book a Demo</Link>
           </div>
         </div>
       </section>
