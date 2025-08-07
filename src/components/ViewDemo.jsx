@@ -14,7 +14,7 @@ function ViewDemo() {
             </div>
             <Link to="/" className="text-gray-700 hover:text-yellow-600 transition-colors flex items-center">
               <ChevronLeft className="w-5 h-5 mr-1" />
-              Voltar à Página Inicial
+              Back to Home Page
             </Link>
           </div>
         </div>
@@ -24,61 +24,62 @@ function ViewDemo() {
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-yellow-800 to-orange-800 bg-clip-text text-transparent leading-tight">
-            Demonstração do iPloyee
+            iPloyee Demo
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-            Explore as capacidades dos nossos AI Receptionists e Chatbots.
+            Explore the capabilities of our AI Receptionists and Chatbots.
           </p>
         </div>
       </section>
 
       {/* Chatbot Demo Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg max-w-4xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Demonstração do Chatbot</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Chatbot Demo</h2>
         <div className="flex justify-center items-center mb-8">
           <img src="/Beige,BrownandWhiteSimpleCleanAnimatedChatTextMobileVideo.gif" alt="Chatbot Demo" className="max-w-full h-auto rounded-lg shadow-md" />
         </div>
         <p className="text-gray-700 text-center max-w-2xl mx-auto">
-          Veja como o nosso chatbot interage com os utilizadores em tempo real, respondendo a perguntas e fornecendo informações.
+          See how our chatbot interacts with users in real-time, answering questions and providing information.
         </p>
       </section>
 
       {/* Audio Demo Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 to-orange-100 shadow-lg rounded-lg max-w-4xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Demonstração de Áudio</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Audio Demo</h2>
         <div className="flex justify-center items-center">
-          <p className="text-gray-700">Aqui virá o áudio.</p>
-          {/* Placeholder for audio player */}
-          {/* <audio controls src="/path/to/your/audio.mp3"></audio> */}
+          <audio controls>
+            <source src="https://smoomer.com/wp-content/uploads/2025/02/Smoomer-AI-Voice-Demo-II.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
         </div>
       </section>
 
       {/* FAQs Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg max-w-4xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Perguntas Frequentes (FAQs)</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions (FAQs)</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">O que é um rececionista de IA?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">What is an AI receptionist?</h3>
             <p className="text-gray-700 leading-relaxed">
-              Um rececionista de IA é um assistente virtual que utiliza inteligência artificial para interagir com clientes, agendar compromissos, qualificar leads e fornecer suporte, 24 horas por dia, 7 dias por semana.
+              An AI receptionist is a virtual assistant that uses artificial intelligence to interact with clients, schedule appointments, qualify leads, and provide support, 24 hours a day, 7 days a week.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Como os chatbots de IA podem beneficiar o meu negócio?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">How can AI chatbots benefit my business?</h3>
             <p className="text-gray-700 leading-relaxed">
-              Os chatbots de IA podem automatizar o atendimento ao cliente, responder a perguntas frequentes instantaneamente, reduzir a carga de trabalho da sua equipa, melhorar a satisfação do cliente e gerar leads qualificados.
+              AI chatbots can automate customer service, answer frequently asked questions instantly, reduce your team's workload, improve customer satisfaction, and generate qualified leads.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">É fácil integrar o iPloyee com os meus sistemas existentes?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Is it easy to integrate iPloyee with my existing systems?</h3>
             <p className="text-gray-700 leading-relaxed">
-              Sim, o iPloyee foi projetado para uma integração fácil com mais de 6.000 aplicações, incluindo sistemas CRM, calendários e ferramentas de negócios, sem necessidade de conhecimento de programação.
+              Yes, iPloyee is designed for easy integration with over 6,000 applications, including CRM systems, calendars, and business tools, with no coding knowledge required.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">O iPloyee oferece suporte 24/7?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Does iPloyee offer 24/7 support?</h3>
             <p className="text-gray-700 leading-relaxed">
-              Sim, os nossos AI Receptionists e Chatbots estão disponíveis 24 horas por dia, 7 dias por semana, para garantir que nunca perca uma oportunidade ou consulta.
+              Yes, our AI Receptionists and Chatbots are available 24 hours a day, 7 days a week, to ensure you never miss an opportunity or inquiry.
             </p>
           </div>
         </div>
@@ -139,4 +140,5 @@ function ViewDemo() {
 }
 
 export default ViewDemo;
+
 

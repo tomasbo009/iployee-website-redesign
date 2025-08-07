@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button.jsx';
-import { Card, CardContent } from '@/components/ui/card.jsx'
-import { Badge } from '@/components/ui/badge.jsx'
+import { Button } from './components/ui/button.jsx';
+import { Card, CardContent } from './components/ui/card.jsx'
+import { Badge } from './components/ui/badge.jsx'
 import {
   Phone,
   MessageCircle,
@@ -300,7 +300,9 @@ function Home() {
                     ))}
                   </div>
                   <p className="text-gray-600 mb-6 italic leading-relaxed">
-                    "{testimonial.text}"
+                    "{
+                      testimonial.text
+                    }"
                   </p>
                   <div>
                     <p className="font-semibold text-gray-900">{testimonial.name}</p>
@@ -341,7 +343,7 @@ function Home() {
                 <img src="/Logo_iPloyee-removebg-preview.png" alt="iPloyee Logo" className="h-12" />
               </div>
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-                iPloyee offers 24/7 AI receptionists and chatbots that handle inquiries, scheduling, and support with human-like precision.
+                iPloyee offers 24/7 AI receptionists and chatbots that handle inquiries, scheduling, and support with human-like precision
               </p>
               <p className="text-gray-400 text-sm">
                 Reduce costs, improve response times, and elevate your customer experience—automatically.
@@ -382,13 +384,8 @@ function Home() {
           </div>
         </div>
       </footer>
-      {/* Checkout Modal */}
-      {isCheckoutOpen && (
-        <Checkout onClose={() => setIsCheckoutOpen(false)} />
-      )}
-
     </div>
-  )
+  );
 }
 
 function App() {
@@ -397,6 +394,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/demo" element={<ViewDemo />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/thankyou" element={<ThankYouPage />} />
       </Routes>
     </Router>
@@ -404,4 +402,5 @@ function App() {
 }
 
 export default App;
+
 
