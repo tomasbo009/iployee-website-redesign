@@ -384,6 +384,12 @@ function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Checkout Modal */}
+      <Checkout 
+        isOpen={isCheckoutOpen} 
+        onClose={() => setIsCheckoutOpen(false)} 
+      />
     </div>
   );
 }
