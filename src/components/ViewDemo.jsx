@@ -48,7 +48,7 @@ function ViewDemo() {
         <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Audio Demo</h2>
         <div className="flex justify-center items-center">
           <audio controls>
-            <source src="https://smoomer.com/wp-content/uploads/2025/02/Smoomer-AI-Voice-Demo-II.mp3" type="audio/mpeg" />
+            <source src="/ai-voice-demo.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>
