@@ -6,7 +6,10 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
   const [error, setError] = useState(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const CLIENT_ID = 'ARjxx1L86y3wiw-qOu5IXPCNTrP2-xrAsLMoN4LlgcQKmmZC5Vv0uNBsszvWhgq0ftCe_Xszf3FYwB5N';
+  // Use sandbox for local development, production for deployed site
+  const CLIENT_ID = window.location.hostname === 'localhost' 
+    ? 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R' // PayPal demo sandbox Client ID
+    : 'AfUikDIx2XnUSh6fzR5ZXmgd6cwzTcsV_84rALwTXgfPDhExrTFLkybtMw_gBNMyP6YMI6Goe0QmKuAG'; // Production Client ID
 
   useEffect(() => {
     // Check if PayPal script is already loaded
@@ -27,8 +30,13 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         }
 
         const script = document.createElement('script');
-        // Based on GitHub issue #572, we need to explicitly specify components=buttons
-        script.src = `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture&components=buttons`;
+        // Use sandbox environment for localhost, production for deployed site
+        const environment = window.location.hostname === 'localhost' ? 'sandbox' : 'production';
+        const clientId = window.location.hostname === 'localhost' 
+          ? 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R' 
+          : CLIENT_ID;
+        
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons&environment=${environment}`;
         script.async = true;
         script.defer = true;
         
