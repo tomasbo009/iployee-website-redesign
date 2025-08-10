@@ -5,6 +5,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [buttonsRendered, setButtonsRendered] = useState(false);
 
   // Use sandbox for local development, production for deployed site
   const CLIENT_ID = window.location.hostname === 'localhost' 
@@ -91,7 +92,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
   }, []);
 
   useEffect(() => {
-    if (!scriptLoaded || !paypalRef.current || disabled || amount <= 0) {
+    if (!scriptLoaded || !paypalRef.current || disabled || amount <= 0 || buttonsRendered) {
       return;
     }
 
@@ -99,17 +100,17 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
       try {
         console.log('Starting PayPal buttons rendering...');
 
-        // Clear any existing content and verify element is still in DOM
+        // Ensure element exists and is in DOM
         if (!paypalRef.current || !document.contains(paypalRef.current)) {
           console.warn('PayPal container element not found or removed from DOM');
           return;
         }
 
+        // Clear any existing content
         paypalRef.current.innerHTML = '';
 
         if (!window.paypal || !window.paypal.Buttons) {
           console.error('window.paypal.Buttons is not available for rendering.');
-          console.log('window.paypal:', window.paypal);
           setError('PayPal Buttons component not available. Please refresh and try again.');
           return;
         }
@@ -138,7 +139,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
               // Redirect to thank you page after successful payment
               setTimeout(() => {
                 window.location.href = window.location.origin + '?thankyou=true';
-              }, 1000); // Small delay to ensure the payment is fully processed
+              }, 1000);
               
               if (onSuccess) {
                 onSuccess(details);
@@ -173,7 +174,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
           }
         });
 
-        // Double-check element is still in DOM before rendering
+        // Final check before rendering
         if (!paypalRef.current || !document.contains(paypalRef.current)) {
           console.warn('PayPal container element removed from DOM before rendering');
           return;
@@ -182,6 +183,8 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         if (paypalButtons && paypalButtons.render) {
           await paypalButtons.render(paypalRef.current);
           console.log('PayPal buttons rendered successfully');
+          setButtonsRendered(true);
+          setError(null); // Clear any previous errors
         } else {
           console.error('PayPal Buttons render method not available');
           setError('PayPal Buttons render method not available. Please refresh and try again.');
@@ -189,17 +192,22 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
       } catch (error) {
         console.error('Error in renderPayPalButtons:', error);
-        setError('Failed to initialize PayPal. Please refresh and try again.');
+        if (error.message && error.message.includes('container element removed')) {
+          console.log('Container removed error - will retry on next render');
+          setButtonsRendered(false);
+        } else {
+          setError('Failed to initialize PayPal. Please refresh and try again.');
+        }
       }
     };
 
-    // Add a small delay to ensure DOM is stable
-    const timeoutId = setTimeout(renderPayPalButtons, 100);
+    // Use a longer delay to ensure DOM stability
+    const timeoutId = setTimeout(renderPayPalButtons, 500);
     
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [scriptLoaded, amount, disabled, onSuccess, onError, onCancel]);
+  }, [scriptLoaded, amount, disabled, onSuccess, onError, onCancel, buttonsRendered]);
 
   if (disabled) {
     return (
@@ -215,7 +223,12 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
         <div className="font-medium">PayPal Error:</div>
         <div>{error}</div>
         <button 
-          onClick={() => window.location.reload()} 
+          onClick={() => {
+            setError(null);
+            setButtonsRendered(false);
+            setIsLoading(true);
+            window.location.reload();
+          }} 
           className="mt-2 text-xs underline hover:no-underline"
         >
           Reload page to try again
@@ -235,7 +248,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
 
   return (
     <div className="w-full">
-      <div ref={paypalRef}></div>
+      <div ref={paypalRef} style={{ minHeight: '45px' }}></div>
     </div>
   );
 };
