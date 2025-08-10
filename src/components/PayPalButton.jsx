@@ -37,7 +37,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
           ? 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R' 
           : CLIENT_ID;
         
-        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons&environment=${environment}`;
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons`;
         script.async = true;
         script.defer = true;
         
