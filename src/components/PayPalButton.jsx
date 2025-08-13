@@ -10,7 +10,7 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
   // Use sandbox for local development, production for deployed site
   const CLIENT_ID = window.location.hostname === 'localhost' 
     ? 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R' // PayPal demo sandbox Client ID
-    : 'AfUikDIx2XnUSh6fzR5ZXmgd6cwzTcsV_84rALwTXgfPDhExrTFLkybtMw_gBNMyP6YMI6Goe0QmKuAG'; // Production Client ID
+    : 'AZls3G2AQd8fN0COUA7p8CI9Edm1CIYCGymOpnTLEBdiXtSg009R3Jkog3laMwTwhFPykI7v6rGFt8y0'; // Production Client ID
 
   useEffect(() => {
     // Check if PayPal script is already loaded
