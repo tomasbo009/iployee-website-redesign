@@ -21,23 +21,45 @@ const PayPalButton = ({ amount, onSuccess, onError, onCancel, disabled = false }
       return;
     }
 
+    // Check if script is already being loaded
+    const existingScript = document.querySelector('script[src*="paypal.com/sdk/js"]');
+    if (existingScript) {
+      console.log('PayPal script already exists, waiting for it to load...');
+      
+      // Wait for the existing script to load
+      const handleExistingLoad = () => {
+        console.log('Existing PayPal script loaded successfully.');
+        if (window.paypal && window.paypal.Buttons) {
+          setScriptLoaded(true);
+          setIsLoading(false);
+        }
+      };
+      
+      const handleExistingError = () => {
+        console.error('Existing PayPal script failed to load, removing and retrying...');
+        existingScript.remove();
+        loadPayPalScript();
+      };
+      
+      existingScript.addEventListener('load', handleExistingLoad);
+      existingScript.addEventListener('error', handleExistingError);
+      
+      // Cleanup event listeners
+      return () => {
+        existingScript.removeEventListener('load', handleExistingLoad);
+        existingScript.removeEventListener('error', handleExistingError);
+      };
+    }
+
     // Load PayPal script with explicit components parameter
     const loadPayPalScript = () => {
       return new Promise((resolve, reject) => {
-        // Remove any existing PayPal scripts
-        const existingScript = document.querySelector('script[src*="paypal.com/sdk/js"]');
-        if (existingScript) {
-          existingScript.remove();
-        }
-
         const script = document.createElement('script');
-        // Use sandbox environment for localhost, production for deployed site
-        const environment = window.location.hostname === 'localhost' ? 'sandbox' : 'production';
         const clientId = window.location.hostname === 'localhost' 
           ? 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R' 
           : CLIENT_ID;
         
-        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons&data-origin=https://darling-gingersnap-e67611.netlify.app/`;
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD&intent=capture&components=buttons`;
         script.async = true;
         script.defer = true;
         
