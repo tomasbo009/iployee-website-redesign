@@ -134,7 +134,9 @@ function Home() {
               <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
               <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
               <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-              <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">Book a Demo</Link>
+              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold text-lg px-8 py-4" asChild>
+                <Link to="/demo">Book a Demo</Link>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -154,7 +156,9 @@ function Home() {
                 <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
                 <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
                 <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-                <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300">Book a Demo</Link>
+                <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold text-lg px-8 py-4" asChild>
+                  <Link to="/demo">Book a Demo</Link>
+                </Button>
               </div>
             </div>
           )}
@@ -180,7 +184,9 @@ function Home() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Link to="/demo" className="text-lg px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 rounded-lg transition-colors">View Demo</Link>
+              <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900" asChild>
+                <Link to="/demo">View Demo</Link>
+              </Button>
             </div>
           </div>
 
@@ -329,7 +335,9 @@ function Home() {
               Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Link to="/demo" className="border-2 border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4 rounded-lg transition-colors">Book a Demo</Link>
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-8 py-4" asChild>
+              <Link to="/demo">Book a Demo</Link>
+            </Button>
           </div>
         </div>
       </section>
