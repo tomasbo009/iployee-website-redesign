@@ -224,20 +224,20 @@ const Checkout = ({ isOpen, onClose }) => {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-700">{product.name}</span>
-                      <span className="font-medium">{selectedPlan.label}</span>
-                      <span className="font-medium">${selectedPlan.price}</span>
+                      <span className="text-gray-700 flex-1">{product.name}</span>
+                      <span className="font-medium whitespace-nowrap text-center min-w-[80px]">{selectedPlan.label}</span>
+                      <span className="font-medium whitespace-nowrap text-right min-w-[80px]">${selectedPlan.price}</span>
                     </div>
                     {selectedPlan.savings > 0 && (
                       <div className="flex justify-between items-center text-green-600">
-                        <span className="text-sm">Savings</span>
-                        <span className="text-sm font-medium">-${selectedPlan.savings}</span>
+                        <span className="text-sm flex-1">Savings</span>
+                        <span className="text-sm font-medium whitespace-nowrap text-right min-w-[80px]">-${selectedPlan.savings}</span>
                       </div>
                     )}
                     <div className="border-t border-gray-300 pt-3">
                       <div className="flex justify-between items-center text-lg font-bold">
-                        <span>Order Total</span>
-                        <span className="text-yellow-600">${totalAmount.toFixed(2)}</span>
+                        <span className="flex-1">Order Total</span>
+                        <span className="text-yellow-600 whitespace-nowrap text-right">${totalAmount.toFixed(2)}</span>
                       </div>
                     </div>
                   </CardContent>
