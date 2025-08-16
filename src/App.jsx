@@ -184,9 +184,13 @@ function Home() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
+<<<<<<< HEAD
               <Button size="lg" variant="outline" className="text-lg px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900" asChild>
                 <Link to="/demo">View Demo</Link>
               </Button>
+=======
+              <Link to="/demo" className="text-lg px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 rounded-lg transition-colors flex items-center justify-center">View Demo</Link>
+>>>>>>> 6b6af0f0d3c9ffcdcbedf753e9318826c819c632
             </div>
           </div>
 
