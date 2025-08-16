@@ -22,14 +22,21 @@ const Checkout = ({ isOpen, onClose }) => {
     fullName: '',
     email: '',
     phone: '',
-    quantity: 1
+    plan: '1' // Changed from quantity to plan
   });
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // Subscription plans with pricing
+  const subscriptionPlans = {
+    '1': { months: 1, price: 350, label: '1 Month', savings: 0 },
+    '6': { months: 6, price: 1785, label: '6 Months', savings: 315 },
+    '12': { months: 12, price: 2940, label: '12 Months', savings: 1260 }
+  };
+
   const product = {
     name: "Smart Voice Pro - AI Calling Agent",
-    price: 350,
+    basePrice: 350,
     description: "Take your customer experience to the next level with SmartVoice Pro, your 24/7 AI-powered voice agent.",
     features: [
       "Bookings & Follow-ups",
@@ -53,7 +60,8 @@ const Checkout = ({ isOpen, onClose }) => {
     }));
   };
 
-  const totalAmount = product.price * formData.quantity;
+  const selectedPlan = subscriptionPlans[formData.plan];
+  const totalAmount = selectedPlan.price;
 
   if (!isOpen) return null;
 
@@ -82,7 +90,10 @@ const Checkout = ({ isOpen, onClose }) => {
                     </div>
                     <div>
                       <CardTitle className="text-xl text-gray-900">{product.name}</CardTitle>
-                      <p className="text-2xl font-bold text-yellow-600">${product.price}/month</p>
+                      <p className="text-2xl font-bold text-yellow-600">${selectedPlan.price}{selectedPlan.months === 1 ? '/month' : ` (${selectedPlan.months} months)`}</p>
+                      {selectedPlan.savings > 0 && (
+                        <p className="text-sm text-green-600 font-medium">Save ${selectedPlan.savings}!</p>
+                      )}
                     </div>
                   </div>
                 </CardHeader>
@@ -183,20 +194,27 @@ const Checkout = ({ isOpen, onClose }) => {
                 </div>
 
                 <div>
-                  <label htmlFor="quantity" className="block text-sm font-medium text-gray-700 mb-2">
-                    Quantity
+                  <label htmlFor="plan" className="block text-sm font-medium text-gray-700 mb-2">
+                    Subscription Plan
                   </label>
                   <select
-                    id="quantity"
-                    name="quantity"
-                    value={formData.quantity}
+                    id="plan"
+                    name="plan"
+                    value={formData.plan}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   >
-                    {[1, 2, 3, 4, 5].map(num => (
-                      <option key={num} value={num}>{num}</option>
+                    {Object.entries(subscriptionPlans).map(([key, plan]) => (
+                      <option key={key} value={key}>
+                        {plan.label} - ${plan.price} {plan.savings > 0 && `(Save $${plan.savings})`}
+                      </option>
                     ))}
                   </select>
+                  {selectedPlan.savings > 0 && (
+                    <p className="text-sm text-green-600 mt-1 font-medium">
+                      💰 You save ${selectedPlan.savings} with this plan!
+                    </p>
+                  )}
                 </div>
 
                 {/* Order Summary */}
@@ -207,9 +225,15 @@ const Checkout = ({ isOpen, onClose }) => {
                   <CardContent className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-gray-700">{product.name}</span>
-                      <span className="font-medium">{formData.quantity}</span>
-                      <span className="font-medium">${totalAmount.toFixed(2)}</span>
+                      <span className="font-medium">{selectedPlan.label}</span>
+                      <span className="font-medium">${selectedPlan.price}</span>
                     </div>
+                    {selectedPlan.savings > 0 && (
+                      <div className="flex justify-between items-center text-green-600">
+                        <span className="text-sm">Savings</span>
+                        <span className="text-sm font-medium">-${selectedPlan.savings}</span>
+                      </div>
+                    )}
                     <div className="border-t border-gray-300 pt-3">
                       <div className="flex justify-between items-center text-lg font-bold">
                         <span>Order Total</span>
@@ -234,7 +258,10 @@ const Checkout = ({ isOpen, onClose }) => {
                       const orderData = {
                         ...formData,
                         product: product.name,
+                        subscriptionPlan: selectedPlan.label,
+                        subscriptionMonths: selectedPlan.months,
                         amount: totalAmount,
+                        savings: selectedPlan.savings,
                         paymentId: details.id,
                         paymentStatus: details.status,
                         timestamp: new Date().toISOString()
