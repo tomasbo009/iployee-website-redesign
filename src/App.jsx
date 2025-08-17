@@ -134,7 +134,7 @@ function Home() {
               <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
               <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
               <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-              <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">Book a Demo</Link>
+              <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">Book a Demo</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -154,7 +154,7 @@ function Home() {
                 <a href="#features" className="text-gray-700 hover:text-yellow-600 transition-colors">Features</a>
                 <a href="#industries" className="text-gray-700 hover:text-yellow-600 transition-colors">Industries</a>
                 <a href="#testimonials" className="text-gray-700 hover:text-yellow-600 transition-colors">Testimonials</a>
-                <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">Book a Demo</Link>
+                <Link to="/demo" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-1 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center">Book a Demo</Link>
               </div>
             </div>
           )}
@@ -180,7 +180,7 @@ function Home() {
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Link to="/demo" className="text-lg px-6 py-2 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 rounded-lg transition-colors flex items-center justify-center">View Demo</Link>
+              <Link to="/demo" className="text-lg px-4 py-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 rounded-lg transition-colors flex items-center justify-center">View Demo</Link>
             </div>
           </div>
 
@@ -329,7 +329,7 @@ function Home() {
               Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Link to="/demo" className="border-2 border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-6 py-2 rounded-lg transition-colors flex items-center justify-center">Book a Demo</Link>
+            <Link to="/demo" className="border-2 border-white text-white hover:bg-white hover:text-yellow-600 text-lg px-4 py-1 rounded-lg transition-colors flex items-center justify-center">Book a Demo</Link>
           </div>
         </div>
       </section>
