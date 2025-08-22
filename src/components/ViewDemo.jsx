@@ -115,7 +115,7 @@ function ViewDemo() {
               <div className="space-y-2 text-gray-400">
                 <p className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
-                  927 249 495
+                  927 249 495 (WhatsApp only)
                 </p>
                 <p className="flex items-center">
                   <MessageCircle className="w-4 h-4 mr-2" />
