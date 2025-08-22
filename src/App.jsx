@@ -176,7 +176,7 @@ function Home() {
               Never miss a lead or an inquiry. Our AI receptionists and chatbots work 24/7 to greet visitors, qualify leads, schedule meetings, and handle support so you can focus on what matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
+              <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-lg px-8 py-4" onClick={() => { setIsCheckoutOpen(true); window.gtagSendEvent(); }}>
                 Buy Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
@@ -325,7 +325,7 @@ function Home() {
             Get your AI Receptionist and start converting more leads into customers today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4" onClick={() => setIsCheckoutOpen(true)}>
+            <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 text-lg px-8 py-4" onClick={() => { setIsCheckoutOpen(true); window.gtagSendEvent(); }}>
               Buy Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
