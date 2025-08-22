@@ -359,8 +359,7 @@ function Home() {
               </ul>
             </div>
             
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Contact Us!</h3>
+            <div>              <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
               <div className="space-y-2 text-gray-400">
                 <p className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
