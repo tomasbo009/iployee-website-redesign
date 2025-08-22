@@ -10,7 +10,7 @@ function ViewDemo() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
-              <img src="/Logo_iPloyee-removebg-preview.png" alt="iPloyee Logo" className="h-12" />
+              <img src="/new_logo.png" alt="iPloyee Logo" className="h-12" />
             </div>
             <Link to="/" className="text-gray-700 hover:text-yellow-600 transition-colors flex items-center">
               <ChevronLeft className="w-5 h-5 mr-1" />
@@ -91,7 +91,7 @@ function ViewDemo() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-6">
-                <img src="/Logo_iPloyee-removebg-preview.png" alt="iPloyee Logo" className="h-12" />
+                <img src="/new_logo.png" alt="iPloyee Logo" className="h-12" />
               </div>
               <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
                 iPloyee offers 24/7 AI receptionists and chatbots that handle inquiries, scheduling, and support with human-like precision.
